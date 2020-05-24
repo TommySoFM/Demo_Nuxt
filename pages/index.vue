@@ -1,12 +1,14 @@
 <template>
   <div>
-    <p> Hello World </p>
-
+    <slideshow />
   </div>
 </template>
 <script>
-// import header from '@/layouts/header'
+import slideshow from '@/components/Slideshow'
 export default {
-  layout: 'header'
+  layout: 'header',
+  components: {
+    slideshow
+  }
 }
 </script>
