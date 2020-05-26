@@ -20,6 +20,10 @@ module.exports = {
       '3': '3rem',
       '4': '4rem',
       '5': '5rem'
+    },
+    flexGrow: {
+      '2': 2,
+      '3': 3
     }
   },
   variants: {},
