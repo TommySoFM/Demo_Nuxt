@@ -62,7 +62,7 @@
 <style lang="scss" scoped>
   .slides-container {
     display: flex;
-
+    
     .slide{
       flex: 1 1 auto;
       transition: flex-grow 1s, background-image 2s;

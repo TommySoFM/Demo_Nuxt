@@ -2,16 +2,19 @@
   <div>
     <slideshow />
     <poster/>
+    <Item />
   </div>
 </template>
 <script>
-import slideshow from '@/components/Slideshow'
-import poster from '@/components/Poster'
+import Slideshow from '@/components/Slideshow'
+import Poster from '@/components/Poster'
+import Item from "~/components/Item";
 export default {
   layout: 'header',
   components: {
-    slideshow,
-    poster
+    Slideshow,
+    Poster,
+    Item
   }
 }
 </script>
