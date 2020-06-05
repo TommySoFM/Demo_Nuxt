@@ -81,16 +81,16 @@
     top: 0;
     left: 0;
     background-color: rgba(215, 216, 222, 0.6);
-    z-index: 10;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .modal {
-    width: 50%;
-    height: 40%;
+    width: 35rem;
+    height: 20rem;
     background-color: white;
-    position: absolute;
-    top: 30%;
-    left: 25%;
     border: #44957a 15px solid;
     border-radius: 30px;
     display: flex;
