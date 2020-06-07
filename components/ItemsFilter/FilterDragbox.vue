@@ -1,33 +1,22 @@
 <template>
   <div class="dragbox">
-    <div class="dragbox__off" v-if="!isExpanded">
-      <div  v-for="(option, index) in receiver" :key="index" class="pill dragbox__off__pill">
-        {{ option }}
-      </div>
-    </div>
-    <div class="dragbox__on" v-else>
-      <div class="genre-box source-box">
-        <div v-for="(option, index) in source" :key="index" :id="'source_' + index"
-             draggable="true" @dragover.stop @dragstart="dragStart" @dragend="dragEnd" class="pill source-box__pill">
-          {{ option }}
-        </div>
-        <div class="pill notification empty" v-if="source.length === 0">
-          All Selected
-        </div>
-      </div>
       <div class="genre-box receiver-box" @dragover.prevent @drop="onDrop">
         <div  v-for="(option, index) in receiver" :key="index"
               @click="cancelSelect(option,index)" class="pill receiver-box__pill">
           {{ option }}
         </div>
-        <div class="pill notification addHere" v-if="isOnDrag">
-          Add Here
-        </div>
-        <div class="pill notification empty" v-if="receiver.length === 0 && !isOnDrag">
-          None Selected
-        </div>
+        <div class="pill notification addHere" v-if="isOnDrag"> Add Here </div>
+        <div class="pill notification empty" v-if="receiver.length === 0 && !isOnDrag"> None Selected </div>
       </div>
-    </div>
+
+      <div class="source-text"> Options: </div>
+      <div class="genre-box source-box">
+        <div v-for="(option, index) in source" :key="index" :id="'source_' + index"
+             draggable="true" @dragover.stop @dragstart="dragStart" @dragend="dragEnd" class="pill source-box__pill">
+          {{ option }}
+        </div>
+        <div class="pill notification empty" v-if="source.length === 0"> All Selected </div>
+      </div>
   </div>
 </template>
 <script>
@@ -53,9 +42,6 @@
           component.$emit('receiverUpdate', emitObject);
           component = component.$parent;
         } while (component);
-      },
-      genreData() {
-        this.source = this.genreData.data
       }
     },
     methods: {
@@ -90,39 +76,25 @@
 </script>
 <style scoped lang="scss">
   .dragbox {
-    width: 100%;
-    &__off {
-      width: 100%;
-      height: fit-content;
-      max-height: 50%;
-      display: flex;
-      flex-direction: column;
-      margin-left: 10%;
-      overflow: auto;
-      user-select: none;
-
-      &__pill {
-        color: white;
-        background-color: rgba(83, 139, 120, 0.5);
-        border: #44957a 2px solid;
-      }
-    }
-    &__on {
-      width: 100%;
-      max-height: 10rem;
-      display: flex;
-      flex-direction: column;
-      border: #44957a 5px solid;
-      border-radius: 0 10px 10px 10px;
+    width: 95%;
+    padding-left: 3%;
+    display: flex;
+    flex-direction: column;
 
       .genre-box {
-        min-height: 3rem;
+        position: relative;
+        min-height: 10vh;
+        max-height: 25vh;
         display: flex;
         flex-wrap: wrap;
         overflow: auto;
       }
       .source-box {
-        border-bottom: rgba(68, 149, 122, 0.5) 3px solid;
+        border-top: rgba(127, 130, 139, 0.3) 3px solid;
+        border-bottom: rgba(127, 130, 139, 0.3) 3px solid;
+        margin-top: 1rem;
+        padding: 1rem 0 ;
+
         &__pill {
           cursor: grab;
           color: white;
@@ -131,6 +103,10 @@
         }
       }
       .receiver-box {
+        margin-bottom: 3rem;
+        border: #7F828B 3px solid;
+        border-radius: 15px;
+        background-color: white;
         &__pill {
           cursor: pointer;
           color: white;
@@ -138,7 +114,6 @@
           border: #44957a 2px solid;
         }
       }
-    }
   }
   .pill {
     width: fit-content;
@@ -150,17 +125,31 @@
   }
   .notification {
     text-align: center;
-    width: 80%;
-    margin-left: 10%;
+    width: 100%;
+    height: auto;
   }
   .addHere {
     color: white;
+    font-size: 130%;
+    font-weight: 700;
+    padding-top: 1rem;
     background-color: rgba(90, 151, 130, 0.7);
     border: #44957a 3px dashed;
   }
   .empty {
     color: white;
+    font-size: 130%;
+    font-weight: 700;
+    padding-top: 1rem;
     background-color: rgba(126, 138, 151, 0.5);
     border: lightslategrey 3px dashed;
+  }
+
+  .source-text {
+    align-self: flex-start;
+    margin-left: .5rem;
+    color: #44957a;
+    font-size: 130%;
+    font-weight: 800;
   }
 </style>

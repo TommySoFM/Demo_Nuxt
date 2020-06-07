@@ -5,6 +5,7 @@
     <Catalogue />
     <AddToCartModal/>
     <ShoppingCart />
+<!--    <Login />-->
   </div>
 </template>
 <script>
@@ -13,6 +14,7 @@ import Poster from '@/components/Poster'
 import Catalogue from "~/components/Catalogue";
 import AddToCartModal from "~/components/AddToCart";
 import ShoppingCart from "~/components/Cart/ShoppingCart";
+import Login from "~/components/Login/Modal";
 
 export default {
   layout: 'header',
@@ -21,7 +23,8 @@ export default {
     Poster,
     Catalogue,
     AddToCartModal,
-    ShoppingCart
+    ShoppingCart,
+    Login
   }
 }
 </script>

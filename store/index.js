@@ -1,6 +1,7 @@
 export const state = () => ({
   isModalOpened: false,
-  modalData: {}
+  modalData: {},
+  selectedFilter: 'All'
 })
 
 export const getters = {
@@ -9,6 +10,9 @@ export const getters = {
   },
   getModalData:(state) => {
     return state.modalData
+  },
+  getSelectedFilter: (state) => {
+    return state.selectedFilter
   }
 }
 
@@ -19,6 +23,9 @@ export const mutations = {
   openModal (state, payload) {
     state.isModalOpened = true
     state.modalData = payload
+  },
+  selectFilter (state, payload) {
+    state.selectedFilter === payload ? state.selectedFilter = 'All' : state.selectedFilter = payload
   }
 }
 
@@ -28,5 +35,8 @@ export const actions = {
   },
   openModal({state, commit}, payload) {
     commit('openModal', payload)
-  }
+  },
+  selectFilter({state, commit}, payload) {
+    commit('selectFilter', payload)
+  },
 }

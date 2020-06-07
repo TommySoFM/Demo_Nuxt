@@ -210,10 +210,13 @@
         monsters = this.filterByGenre(monsters, this.elementsSelect, 'element')
         return monsters
       },
-      genreCollection(targetArray, keyword) {
-        const collectedArray = targetArray.map( item => { return item[keyword] })
+      removeReplicate(targetArray) {
+        return [...new Set(targetArray)].sort()
+      },
+      genreCollection(targetArray, genre) {
+        const collectedArray = targetArray.map( item => { return item[genre] })
         const sortedArray = [...new Set(collectedArray)].sort()
-        return new Object({genre: keyword, data: sortedArray})
+        return new Object({genre: genre, data: sortedArray})
       }
     }
   }
