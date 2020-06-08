@@ -1,5 +1,6 @@
 export const state = () => ({
   isModalOpened: false,
+  isFilterExpanded: false,
   modalData: {},
   selectedFilter: 'All'
 })
@@ -7,6 +8,9 @@ export const state = () => ({
 export const getters = {
   getIsModalOpened:(state) => {
     return state.isModalOpened
+  },
+  getIsFilterExpanded:(state) => {
+    return state.isFilterExpanded
   },
   getModalData:(state) => {
     return state.modalData
@@ -20,6 +24,9 @@ export const mutations = {
   toggleModal (state, payload) {
     state.isModalOpened = !state.isModalOpened
   },
+  syncExpand (state, payload) {
+    state.isFilterExpanded = payload
+  },
   openModal (state, payload) {
     state.isModalOpened = true
     state.modalData = payload
@@ -32,6 +39,9 @@ export const mutations = {
 export const actions = {
   toggleModal({state, commit}, payload) {
     commit('toggleModal')
+  },
+  syncExpand({state, commit}, payload) {
+    commit('syncExpand',payload)
   },
   openModal({state, commit}, payload) {
     commit('openModal', payload)

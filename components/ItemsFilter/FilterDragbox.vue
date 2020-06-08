@@ -5,7 +5,7 @@
               @click="cancelSelect(option,index)" class="pill receiver-box__pill">
           {{ option }}
         </div>
-        <div class="pill notification addHere" v-if="isOnDrag"> Add Here </div>
+        <div class="pill notification addHere" v-if="receiver.length === 0 && isOnDrag"> Add Here </div>
         <div class="pill notification empty" v-if="receiver.length === 0 && !isOnDrag"> None Selected </div>
       </div>
 
@@ -23,8 +23,8 @@
   export default {
     data() {
       return {
-        source: this.genreData.data,
-        receiver: [],
+        source: [],
+        receiver: this.genreData.selected,
         replication: new Set(),
         isOnDrag: false
       }
@@ -33,6 +33,14 @@
       'genreData',
       'isExpanded'
     ],
+    mounted() {
+        const setOfAll = new Set(this.genreData.all)
+        const items = this.genreData.selected
+        for (let i=0; i < items.length; i++) {
+          setOfAll.delete(items[i])
+        }
+        this.source = [...setOfAll]
+    },
     watch: {
       receiver() {
         const emitObject = new Object({genre: this.genreData.genre, data: this.receiver})

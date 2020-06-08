@@ -2,10 +2,11 @@
   <div class="catalogue-container">
     <SearchFilter :mapData="maps" :typeData="types" :elementData="elements" :maxPrice="maxPrice"
                   @receiverUpdate="syncData"/>
-    <Item class="catalogue-container__items" :monsters="filteredMonster"/>
+    <Item class="catalogue-container__items" :monsters="filteredMonster" :class="{'expanded': isExpanded}"/>
   </div>
 </template>
 <script>
+  import { mapGetters } from 'vuex'
   import Item from "~/components/Item";
   import SearchFilter from './ItemsFilter/Filter'
 
@@ -119,34 +120,36 @@
       }
     },
     computed: {
+      ...mapGetters({
+        isExpanded: 'getIsFilterExpanded'
+      }),
       maxPrice() {
         const priceArray = this.monsters.map(monster => { return monster.discounted || monster.price })
         return Math.ceil(Math.max(...priceArray))
       },
       maps() {
-        return this.isOnFilter ?
-          this.genreCollection(this.filteredMonster, 'habitat') :
-          this.genreCollection(this.monsters, 'habitat')
+        const collectedArray = this.monsters.map( item => { return item["habitat"] })
+        return new Object({genre: 'habitat', selected: this.mapsSelect, all: collectedArray})
       },
       types() {
-        return this.isOnFilter ?
-          this.genreCollection(this.filteredMonster, 'type') :
-          this.genreCollection(this.monsters, 'type')
+        const collectedArray = this.monsters.map( item => { return item["type"] })
+        return new Object({genre: 'type', selected: this.typesSelect, all: collectedArray})
       },
       elements() {
-        return this.isOnFilter ?
-          this.genreCollection(this.filteredMonster, 'element') :
-          this.genreCollection(this.monsters, 'element')
-      },
-      isOnFilter() {
-        return this.typesSelect.length > 0 || this.mapsSelect.length > 0 || this.elementsSelect.length > 0
+        const collectedArray = this.monsters.map( item => { return item["element"] })
+        return new Object({genre: 'element', selected: this.elementsSelect, all: collectedArray})
       }
     },
     components: {
       Item,
       SearchFilter
     },
+    mounted() {
+      this.value[1] = this.maxPrice
+      this.filteredMonster = this.filterAll()
+    },
     watch: {
+      // Update 'filteredMonster' Array upon data sync. by event
       mapsSelect() {
         this.filteredMonster = this.filterAll()
       },
@@ -162,6 +165,7 @@
       }
     },
     methods: {
+      // Receive event data + Trigger $watch to filter
       syncData(event) {
         const genre = event.genre
         const data = event.data
@@ -209,14 +213,6 @@
         monsters = this.filterByGenre(monsters, this.typesSelect, 'type')
         monsters = this.filterByGenre(monsters, this.elementsSelect, 'element')
         return monsters
-      },
-      removeReplicate(targetArray) {
-        return [...new Set(targetArray)].sort()
-      },
-      genreCollection(targetArray, genre) {
-        const collectedArray = targetArray.map( item => { return item[genre] })
-        const sortedArray = [...new Set(collectedArray)].sort()
-        return new Object({genre: genre, data: sortedArray})
       }
     }
   }
@@ -227,7 +223,13 @@
 
     &__items {
       min-height: 100vh;
-      margin-left: 30vw;
+      margin-left: 3rem;
+      margin-right: 3rem;
+      transition: all .4s ease .1s;
     }
+  }
+  .expanded {
+    margin-left: 30vw;
+    transition: all .4s ease;
   }
 </style>

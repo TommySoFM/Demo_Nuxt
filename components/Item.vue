@@ -10,6 +10,9 @@
       <div class="monster-card__discounted" v-if="monster.discounted != null"> ${{ monster.discounted }} </div>
       <button class="monster-card__button" v-show="index === position" @click="openModal(monster)">Add to Cart</button>
     </div>
+    <div class="monster-notfound" v-if="monsters.length===0">
+      <h3>No Matching Items</h3>
+    </div>
   </div>
 </template>
 <script>
@@ -37,7 +40,7 @@
     flex-wrap: wrap;
     position: relative;
     font-family: Roboto, sans-serif;
-
+    margin-top: 3rem;
   }
   .monster-card {
     flex: 1 1 auto;
@@ -94,6 +97,23 @@
         background-color: #44957a;
         color: white;
       }
+    }
+  }
+  .monster-notfound {
+    width: 50vw;
+    height: 20vh;
+    margin-top: 3rem;
+    border: rgba(155, 161, 167, 0.7) 10px dashed;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    cursor: default;
+    &>h3 {
+      font-size: 200%;
+      font-weight: 700;
+      color: rgba(155, 161, 167, 0.7);
     }
   }
 </style>

@@ -4,10 +4,11 @@
       <template slot="title"> Filter </template>
       <template slot="body" >
         <transition-group name="slide">
-          <genre v-for="filter in filters" :key="filter.name" v-if="selectedFilter === 'All' || selectedFilter === filter.name" :filter="filter.name">
+          <genre v-for="filter in filters" :key="filter.name"
+                 v-if="selectedFilter === 'All' || selectedFilter === filter.name" :filter="filter.name">
             <template slot="header"> {{ filter.name }} </template>
             <template slot="body" slot-scope="props">
-              <slider :isExpanded="props.isExpanded" :maxPrice="maxPrice" v-if="filter.name === 'Price'"/>
+              <slider :isExpanded="props.isExpanded" :maxPrice="filter.data" v-if="filter.name === 'Price'"/>
               <dragbox :isExpanded="props.isExpanded" :genreData="filter.data" v-else/>
             </template>
           </genre>
@@ -51,10 +52,12 @@
     },
     methods: {
       ...mapActions({
-        selectFilter: 'selectFilter'
+        selectFilter: 'selectFilter',
+        syncExpand: 'syncExpand'
       }),
       // Return panel to 'All' when tag collapsed //
       syncStatus(value) {
+        this.syncExpand(value)
         if(!value) {
           this.selectFilter('All')
         }
