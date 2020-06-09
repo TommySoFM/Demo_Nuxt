@@ -1,5 +1,5 @@
 <template>
-    <div class="container h-108 mx-auto my-8 relative overflow-hidden"
+    <div class="container h-108 mx-auto my-8 relative overflow-hidden relative"
          @mouseenter="autoplay=false"
          @mouseleave="autoplay=true">
       <client-only>
@@ -11,9 +11,10 @@
           </transition>
         </keep-alive>
       </client-only>
-        <div class="flex z-10 absolute text-white right-3 bottom-2">
-          <div v-for="(slide, index) in slides" :key="slide.seq" @click="selectSlide(index)" class="cursor-pointer"> 。 </div>
-        </div>
+      <button class="slide-button"> Prev </button>
+      <div class="flex z-10 absolute text-white right-3 bottom-2">
+        <div v-for="(slide, index) in slides" :key="slide.seq" @click="selectSlide(index)" class="cursor-pointer"> 。 </div>
+      </div>
     </div>
 </template>
 <script>
@@ -61,6 +62,16 @@
 }
 </script>
 <style scoped>
+  .slide-button {
+    position: relative;
+    top: 40%;
+    left: 0;
+    width: 5rem;
+    height: 3rem;
+    border-radius: 20px;
+    background-color: white;
+  }
+
   .carousel-prev-enter-active, .carousel-prev-leave-active,
   .carousel-next-enter-active, .carousel-next-leave-active{
     transition: transform 1s ease;

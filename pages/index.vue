@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Carousel />
     <slideshow />
     <poster/>
     <Catalogue />
@@ -10,6 +11,7 @@
 </template>
 <script>
 import Slideshow from '@/components/Slideshow'
+import Carousel from "~/components/Carousel";
 import Poster from '@/components/Poster'
 import Catalogue from "~/components/Catalogue";
 import AddToCartModal from "~/components/AddToCart";
@@ -20,6 +22,7 @@ export default {
   layout: 'header',
   components: {
     Slideshow,
+    Carousel,
     Poster,
     Catalogue,
     AddToCartModal,
