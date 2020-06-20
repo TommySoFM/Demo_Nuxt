@@ -1,16 +1,16 @@
 <template>
-  <div class="carousel">
-    <transition :name="[carousel === 'carousel-next' ? 'prev-forward' : 'prev-backward']">
+  <div class="carousel" @mouseenter="autoplay=false" @mouseleave="autoplay=true">
+    <transition :name="carousel === 'carousel-next' ? 'prev-forward' : 'prev-backward'">
       <div class="slide slide-prev darkening" v-for="(slide,  index) in slides" :key="slide.seq" v-if="index === prevSlide">
         <img :src="slide.img"/>
       </div>
     </transition>
-    <transition :name="[carousel === 'carousel-next' ? 'now-forward' : 'now-backward']">
+    <transition :name="carousel === 'carousel-next' ? 'now-forward' : 'now-backward'">
       <div class="slide slide-now" v-for="(slide,  index) in slides" :key="slide.seq" v-if="index === current">
         <img :src="slide.img"/>
       </div>
     </transition>
-    <transition :name="[carousel === 'carousel-next' ? 'next-forward' : 'next-backward']">
+    <transition :name="carousel === 'carousel-next' ? 'next-forward' : 'next-backward'">
       <div class="slide slide-next darkening" v-for="(slide,  index) in slides" :key="slide.seq" v-if=" index === nextSlide">
         <img :src="slide.img"/>
       </div>
@@ -46,7 +46,7 @@
       }
     },
     mounted() {
-      // this.setInterval(3000)
+      this.setInterval(5000)
     },
     methods: {
       forwardSlide() {
@@ -96,32 +96,36 @@
       transform: translateX(45vw);
     }
     .darkening {
-      &:after {
-        position: absolute;
-        top: 0;
-        left: 0;
-        content: '';
-        width: 100%;
-        height: 120%;
-        background-color: rgba(43, 40, 40, 0.7);
-        z-index: 1000;
-      }
+      /*&:after {*/
+      /*  position: absolute;*/
+      /*  top: 0;*/
+      /*  left: 0;*/
+      /*  content: '';*/
+      /*  width: 100%;*/
+      /*  height: 120%;*/
+      /*  background-color: rgba(43, 40, 40, 0.7);*/
+      /*  z-index: 10;*/
+      /*  transition: all .5s ease;*/
+      /*}*/
     }
   }
   .slide-button {
-    position: relative;
-    width: 5rem;
-    height: 3rem;
-    border-radius: 20px;
-    background-color: white;
+    position: absolute;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background-color: rgba(222, 217, 217, 0.7);
+    color: white;
+    font-weight: 800;
+    outline: none;
   }
   .prev {
     top: 40%;
-    left: 15%;
+    left: 9%;
   }
   .next {
     top: 40%;
-    left: 70%;
+    left: 86%;
   }
 
 

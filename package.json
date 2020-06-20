@@ -1,7 +1,7 @@
 {
-  "name": "nuxt-bookstore",
+  "name": "mh-icon-store",
   "version": "1.0.0",
-  "description": "Demo bookstore app built by Nuxt",
+  "description": "A demo shop selling icons from Monster Hunter built by Nuxt",
   "author": "Tommy",
   "private": true,
   "scripts": {
@@ -12,7 +12,9 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
-    "nuxt": "^2.0.0"
+    "gsap": "^3.3.1",
+    "nuxt": "^2.0.0",
+    "vue-scrollmagic": "^1.2.0"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^1.0.0",
