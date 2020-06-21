@@ -7,6 +7,7 @@
       :elementData="elements"
       :maxPrice="maxPrice"
       @receiverUpdate="syncData"
+      class="filter"
     />
     <Item
       class="catalogue-container__items"
@@ -172,5 +173,8 @@ export default {
   margin-left: 30vw;
   padding: 0;
   transition: all 0.4s ease;
+}
+.filter {
+  transform: translateY(-3.5rem);
 }
 </style>

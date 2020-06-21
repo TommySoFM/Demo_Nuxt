@@ -55,6 +55,7 @@ export default {
   font-weight: 700;
   margin: 1rem 0 4rem 3rem;
   opacity: 100%;
+  z-index: 1;
   &:after {
     position: absolute;
     content: '';

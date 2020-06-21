@@ -7,28 +7,34 @@
       <div
         v-for="(monster, index) in monsters"
         :key="`monster-${index}`"
-        class="slide"
+        class="banner-slide"
         @mouseover="cursorPosition=index"
       >
-        <div class="character-filter" v-if="index !== cursorPosition">
-          <h3 class="text-off">{{ monster.name }}</h3>
-        </div>
-        <transition name="character-off">
-          <img :src="monster.icon" class="character-image-off" v-if="index !== cursorPosition" />
-        </transition>
-        <div class="character-filter" style="background: none">
-          <transition name="fade">
-            <h3 class="text-on" v-if="index === cursorPosition">{{ monster.name }}</h3>
+        <div class="slide-off">
+          <div class="character-filter" v-if="index !== cursorPosition">
+            <h3 class="text-off">{{ monster.name }}</h3>
+          </div>
+          <transition name="character-off">
+            <img :src="monster.icon" class="character-image-off" v-if="index !== cursorPosition" />
           </transition>
         </div>
-        <transition name="character-on">
-          <img :src="monster.icon" class="character-image-on" v-if="index === cursorPosition" />
-        </transition>
+
+        <div class="slide-on">
+          <div class="character-filter" style="background: none">
+            <transition name="fade">
+              <h3 class="text-on" v-if="index === cursorPosition">{{ monster.name }}</h3>
+            </transition>
+          </div>
+          <transition name="character-on">
+            <img :src="monster.icon" class="character-image-on" v-if="index === cursorPosition" />
+          </transition>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { gsap } from 'gsap'
 import SectionTitle from './SectionTitle'
 export default {
   data() {
@@ -75,14 +81,35 @@ export default {
   },
   components: {
     SectionTitle
+  },
+  mounted() {
+    gsap.defaults({ ease: 'power2' })
+    // gsap.set(".banner-slide", {y: '-100%'});
+    const tl = gsap.timeline()
+    tl.from('.banner-slide', {
+      y: '-100%',
+      stagger: 0.1,
+      scrollTrigger: {
+        trigger: '.banner-container',
+        start: '+=100px +=100px',
+        end: '+=300',
+        scrub: 2,
+        markers: true
+      }
+    })
+    // tl.to('.banner-slide', {
+    //   y: '3rem',
+    //   stagger: 0.1,
+    // })
   }
 }
 </script>
 <style lang="scss" scoped>
 .slides-container {
   display: flex;
+  overflow: hidden;
 
-  .slide {
+  .banner-slide {
     flex: 1 0 auto;
     transition: flex-grow 1s, background-image 2s;
     position: relative;

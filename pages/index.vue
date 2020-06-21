@@ -76,13 +76,14 @@ export default {
     position: relative;
     display: flex;
     flex-direction: column;
-    margin-bottom: 7rem;
+    margin-bottom: 80vh;
   }
   .catalogue {
     position: relative;
     background-color: white;
     display: flex;
     flex-direction: column;
+    padding-top: 2rem;
   }
 }
 </style>
