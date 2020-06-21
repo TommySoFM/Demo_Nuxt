@@ -2,7 +2,7 @@
   <div class="banner-container w-full flex flex-col">
     <img class="banner-background" src="../static/backgrounds/dragon-background.jpg" />
     <section-title callName="t-banner" parentName="banner-container">Best Sellers</section-title>
-
+    <div class="blocker" v-if="!loaded" />
     <div class="h-108 slides-container" @mouseleave="cursorPosition=null">
       <div
         v-for="(monster, index) in monsters"
@@ -76,31 +76,52 @@ export default {
             'https://vignette.wikia.nocookie.net/monsterhunter/images/d/dc/MHW-Black_Diablos_Icon.png/revision/latest?cb=20181008232237'
         }
       ],
-      cursorPosition: null
+      cursorPosition: null,
+      loaded: false
     }
   },
   components: {
     SectionTitle
   },
   mounted() {
+    const vm = this
     gsap.defaults({ ease: 'power2' })
-    // gsap.set(".banner-slide", {y: '-100%'});
-    const tl = gsap.timeline()
-    tl.from('.banner-slide', {
-      y: '-100%',
-      stagger: 0.1,
-      scrollTrigger: {
-        trigger: '.banner-container',
-        start: '+=100px +=100px',
-        end: '+=300',
-        scrub: 2,
-        markers: true
-      }
+
+    gsap.utils.toArray('.banner-slide').forEach((slide, index) => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.banner-container',
+          start: '+=100px +=100px',
+          end: '+=300',
+          scrub: 2
+          // markers: true
+        }
+      })
+      tl.from(slide, {
+        y: '-100%',
+        delay: index * 0.3,
+        onUpdate: function() {
+          vm.loaded = false
+        },
+        onComplete: function() {
+          vm.loaded = true
+        }
+      })
+        .to(
+          slide,
+          {
+            y: '1rem'
+          },
+          '-=0.1'
+        )
+        .to(
+          slide,
+          {
+            y: 0
+          },
+          '-=0.2'
+        )
     })
-    // tl.to('.banner-slide', {
-    //   y: '3rem',
-    //   stagger: 0.1,
-    // })
   }
 }
 </script>
@@ -190,7 +211,16 @@ export default {
   width: 100vw;
   height: 97%;
   transform: translateY(4.3rem);
-  filter: grayscale(80%);
+  filter: grayscale(60%);
+}
+
+.blocker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  z-index: 1000;
 }
 
 .character-off-enter-active,

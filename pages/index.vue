@@ -76,7 +76,7 @@ export default {
     position: relative;
     display: flex;
     flex-direction: column;
-    margin-bottom: 80vh;
+    margin-bottom: 85vh;
   }
   .catalogue {
     position: relative;
