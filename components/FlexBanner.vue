@@ -35,6 +35,7 @@
 </template>
 <script>
 import { gsap } from 'gsap'
+import { mapActions } from 'vuex'
 import SectionTitle from './SectionTitle'
 export default {
   data() {
@@ -83,6 +84,11 @@ export default {
   components: {
     SectionTitle
   },
+  methods: {
+    ...mapActions({
+      selectedCode: 'selectedCode'
+    })
+  },
   mounted() {
     const vm = this
     gsap.defaults({ ease: 'power2' })
@@ -95,6 +101,9 @@ export default {
           end: '+=300',
           scrub: 2
           // markers: true
+        },
+        onComplete: () => {
+          vm.selectedCode(1)
         }
       })
       tl.from(slide, {
@@ -123,6 +132,27 @@ export default {
         )
     })
   }
+
+  // mounted() {
+  //   // Define scroll trigger details
+  //   const trigger = {
+  //     trigger: '.container',
+  //     start: '+=100px +=100px',
+  //     end: '+=300',
+  //     scrub: 2
+  //   }
+  //   // Iterate Timeline construction to all cards
+  //   gsap.utils.toArray('.cards')
+  //   .forEach((card, index) => {
+  //     const tl = gsap.timeline({
+  //       scrollTrigger: trigger
+  //     })
+  //     // Chain up Timeline animations
+  //     tl.from( card, { y: '-100%', delay: index * 0.3 })
+  //       .to( card, { y: '1rem' }, '-=0.1' )
+  //       .to( card, { y: 0 }, '-=0.2' )
+  //   })
+  // }
 }
 </script>
 <style lang="scss" scoped>

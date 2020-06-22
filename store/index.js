@@ -2,7 +2,8 @@ export const state = () => ({
   isModalOpened: false,
   isFilterExpanded: false,
   modalData: {},
-  selectedFilter: 'All'
+  selectedFilter: 'All',
+  selectedCode: 0
 })
 
 export const getters = {
@@ -17,6 +18,9 @@ export const getters = {
   },
   getSelectedFilter: (state) => {
     return state.selectedFilter
+  },
+  getSelectedCode: (state) => {
+    return state.selectedCode
   }
 }
 
@@ -33,6 +37,9 @@ export const mutations = {
   },
   selectFilter(state, payload) {
     state.selectedFilter === payload ? state.selectedFilter = 'All' : state.selectedFilter = payload
+  },
+  selectedCode(state, payload) {
+    state.selectedCode = payload
   }
 }
 
@@ -48,5 +55,8 @@ export const actions = {
   },
   selectFilter({ state, commit }, payload) {
     commit('selectFilter', payload)
+  },
+  selectedCode({ state, commit }, payload) {
+    commit('selectedCode', payload)
   },
 }

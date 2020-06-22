@@ -7,35 +7,37 @@
 </template>
 <script>
 import { gsap } from 'gsap'
+import { mapActions } from 'vuex'
 export default {
   props: ['callName', 'parentName'],
+  methods: {
+    ...mapActions({
+      selectedCode: 'selectedCode'
+    })
+  },
   mounted() {
+    const vm = this
     const target = '.' + this.callName
     const container = '.' + this.callName + '-container'
     const parent = '.' + this.parentName
 
-    gsap.fromTo(
-      target,
-      {
-        fontSize: '230%',
-        x: 0,
-        marginTop: 0,
-        autoAlpha: 1
-      },
-      {
-        fontSize: '150%',
-        x: -40,
-        marginBottom: '2rem',
-        marginTop: '1.5rem',
-        autoAlpha: 0.6,
-        scrollTrigger: {
-          trigger: target,
-          start: 'top top',
-          scrub: 1
-          // markers: true
-        }
+    gsap.set(target, { x: 0, fontSize: '230%', marginTop: 0, autoAlpha: 1 })
+    gsap.to(target, {
+      fontSize: '150%',
+      x: -40,
+      marginBottom: '2rem',
+      marginTop: '1.5rem',
+      autoAlpha: 0.6,
+      scrollTrigger: {
+        trigger: target,
+        start: 'top top',
+        scrub: 1
+        // markers: true
       }
-    )
+      // onComplete: () => {
+      //   vm.selectedCode(0)
+      // }
+    })
 
     gsap.to(container, {
       scrollTrigger: {
@@ -44,6 +46,31 @@ export default {
         pinSpacing: false
       }
     })
+
+    // mounted() {
+    //   // Define scroll trigger details
+    //   const trigger = {
+    //     trigger: target,
+    //     start: 'top top',
+    //     scrub: 1,
+    //   }
+    //   // Style before animation starts
+    //   gsap.set( '.title', {
+    //       x: 0,
+    //       fontSize: '230%',
+    //       marginTop: 0,
+    //       autoAlpha: 1
+    //     })
+    //   // Animation details
+    //   gsap.to( '.title',
+    //     {
+    //       x: -40,
+    //       fontSize: '150%',
+    //       marginTop: '1.5rem',
+    //       autoAlpha: 0.6,
+    //       scrollTrigger: trigger}
+    //     )
+    //   }
   }
 }
 </script>
@@ -55,7 +82,6 @@ export default {
   font-weight: 700;
   margin: 1rem 0 4rem 3rem;
   opacity: 100%;
-  z-index: 1;
   &:after {
     position: absolute;
     content: '';
