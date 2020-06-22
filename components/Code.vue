@@ -1,22 +1,20 @@
 <template>
-  <cart-frame
-    direction="set-right"
-    sequence="1"
-    :remoteSwitch="remoteSwitch"
-    @keyup.enter="clickNext()"
-  >
+  <cart-frame direction="set-right" sequence="1" :remoteSwitch="remoteSwitch">
     <template slot="title">Code</template>
     <template slot="body">
       <div>
         <div class="title">
           <span
-            style="font-size: 200%; font-weight: 800; color: #367862"
+            style="font-size: 170%; font-weight: 800; color: #367862"
           >{{ points[selectedCode].title }}</span>
         </div>
         <div class="items">
           <img :src="points[selectedCode].image" style="cursor: pointer" />
         </div>
         <div class="total"></div>
+        <div class="payment">
+          <button @click="clickPrev()">Prev</button>
+        </div>
         <div class="payment">
           <button @click="clickNext()">Next</button>
         </div>
@@ -32,19 +30,19 @@ export default {
     return {
       points: [
         {
-          title: 'Scroll Animation I',
+          title: '1.) Scroll Animation I',
           image: '/gsap/gsap-0.png'
         },
         {
-          title: 'Scroll Animation II',
+          title: '2.) Scroll Animation II',
           image: '/gsap/gsap-1.png'
         },
         {
-          title: 'Pinned Section',
+          title: '3.) Pinned Section',
           image: '/gsap/gsap-2.png'
         },
         {
-          title: 'Pinned Components',
+          title: '4.) Pinned Components',
           image: '/gsap/gsap-3.png'
         }
       ],
@@ -66,6 +64,10 @@ export default {
     clickNext() {
       const currentCode = this.selectedCode
       currentCode === 3 ? this.setCode(0) : this.setCode(currentCode + 1)
+    },
+    clickPrev() {
+      const currentCode = this.selectedCode
+      currentCode === 0 ? this.setCode(3) : this.setCode(currentCode - 1)
     }
   }
 }
